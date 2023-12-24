@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blockchain UI</title>
+  <title>Blockchain Transaction</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f5f5f5;
+      background-color: #e7d3a0;
       margin: 0;
       padding: 20px;
     }
@@ -16,87 +16,80 @@
       text-align: center;
     }
 
-    .block {
-      border: 1px solid #ddd;
-      margin: 10px;
-      padding: 15px;
-      background-color: #fff;
-      border-radius: 5px;
+    form {
+      max-width: 400px;
+      margin: 0 auto;
     }
 
-    .block-header {
-      font-weight: bold;
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input {
+      width: 100%;
       margin-bottom: 10px;
+      padding: 8px;
     }
 
-    .block-data {
-      padding-left: 20px;
+    button {
+      margin-top: 10px;
+    margin-left: 8px;
+      width: 100%;
+      padding: 9px;
+      background-color: #000000;
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
 
-  <h1>Blockchain Explorer</h1>
+  <h1>Make a Transaction</h1>
 
-  <div id="blockchain-container"></div>
+  <form id="transaction-form">
+    <label for="from">From:</label>
+    <input type="text" id="from" required>
+
+    <label for="to">To:</label>
+    <input type="text" id="to" required>
+
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" required>
+
+    <button type="button" onclick="addTransaction()">Add Transaction</button>
+  </form>
 
   <script>
-    const myBlockchain = [
-      {
-        "index": 0,
-        "timestamp": "2023-12-25T12:00:00.000Z",
-        "transactions": "Genesis Block",
-        "previousHash": "0",
-        "hash": "8b61cfcf146e3f894197a3f7e1e8e63b5c5ef8a64f7e8b48e140990d20c3d1a8"
-      },
-      {
-        "index": 1,
-        "timestamp": "2023-12-25T12:15:00.000Z",
-        "transactions": {
-          "from": "Alice",
-          "to": "Bob",
-          "amount": 10
+    function addTransaction() {
+      const from = document.getElementById('from').value;
+      const to = document.getElementById('to').value;
+      const amount = document.getElementById('amount').value;
+
+      const transactionData = {
+        from,
+        to,
+        amount
+      };
+
+      fetch('/add-transaction', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
         },
-        "previousHash": "8b61cfcf146e3f894197a3f7e1e8e63b5c5ef8a64f7e8b48e140990d20c3d1a8",
-        "hash": "7e27992e48e36269d1c0cd7b3f8d8e6c4e80df398bf9ccad43a3b4df54083565"
-      },
-      {
-        "index": 2,
-        "timestamp": "2023-12-25T12:30:00.000Z",
-        "transactions": {
-          "from": "Bob",
-          "to": "Charlie",
-          "amount": 5
-        },
-        "previousHash": "7e27992e48e36269d1c0cd7b3f8d8e6c4e80df398bf9ccad43a3b4df54083565",
-        "hash": "2c4e56e354df6b11f6da9bf1277bdf46518f3b8b8bf28c574c7f49c0f165b676"
-      }
-    ];
-
-    const blockchainContainer = document.getElementById('blockchain-container');
-
-    myBlockchain.forEach(block => {
-      const blockDiv = document.createElement('div');
-      blockDiv.classList.add('block');
-
-      const blockHeader = document.createElement('div');
-      blockHeader.classList.add('block-header');
-      blockHeader.textContent = `Block #${block.index}`;
-
-      const blockData = document.createElement('div');
-      blockData.classList.add('block-data');
-      blockData.innerHTML = `
-        <p><strong>Timestamp:</strong> ${block.timestamp}</p>
-        <p><strong>Transactions:</strong> ${JSON.stringify(block.transactions)}</p>
-        <p><strong>Previous Hash:</strong> ${block.previousHash}</p>
-        <p><strong>Hash:</strong> ${block.hash}</p>
-      `;
-
-      blockDiv.appendChild(blockHeader);
-      blockDiv.appendChild(blockData);
-
-      blockchainContainer.appendChild(blockDiv);
-    });
+        body: JSON.stringify(transactionData)
+      })
+      .then(response => response.text())
+      .then(result => {
+        console.log(result);
+        alert('Transaction added successfully!');
+      })
+      .catch(error => {
+        console.error('Error adding transaction:', error);
+        alert('Error adding transaction. Please try again.');
+      });
+    }
   </script>
 
 </body>
