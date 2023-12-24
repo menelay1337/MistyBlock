@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blockchain UI</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .block {
+      border: 1px solid #ddd;
+      margin: 10px;
+      padding: 15px;
+      background-color: #fff;
+      border-radius: 5px;
+    }
+
+    .block-header {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .block-data {
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Blockchain Explorer</h1>
+
+  <div id="blockchain-container"></div>
+
+  <script>
+    const myBlockchain = [
+      {
+        "index": 0,
+        "timestamp": "2023-12-25T12:00:00.000Z",
+        "transactions": "Genesis Block",
+        "previousHash": "0",
+        "hash": "8b61cfcf146e3f894197a3f7e1e8e63b5c5ef8a64f7e8b48e140990d20c3d1a8"
+      },
+      {
+        "index": 1,
+        "timestamp": "2023-12-25T12:15:00.000Z",
+        "transactions": {
+          "from": "Alice",
+          "to": "Bob",
+          "amount": 10
+        },
+        "previousHash": "8b61cfcf146e3f894197a3f7e1e8e63b5c5ef8a64f7e8b48e140990d20c3d1a8",
+        "hash": "7e27992e48e36269d1c0cd7b3f8d8e6c4e80df398bf9ccad43a3b4df54083565"
+      },
+      {
+        "index": 2,
+        "timestamp": "2023-12-25T12:30:00.000Z",
+        "transactions": {
+          "from": "Bob",
+          "to": "Charlie",
+          "amount": 5
+        },
+        "previousHash": "7e27992e48e36269d1c0cd7b3f8d8e6c4e80df398bf9ccad43a3b4df54083565",
+        "hash": "2c4e56e354df6b11f6da9bf1277bdf46518f3b8b8bf28c574c7f49c0f165b676"
+      }
+    ];
+
+    const blockchainContainer = document.getElementById('blockchain-container');
+
+    myBlockchain.forEach(block => {
+      const blockDiv = document.createElement('div');
+      blockDiv.classList.add('block');
+
+      const blockHeader = document.createElement('div');
+      blockHeader.classList.add('block-header');
+      blockHeader.textContent = `Block #${block.index}`;
+
+      const blockData = document.createElement('div');
+      blockData.classList.add('block-data');
+      blockData.innerHTML = `
+        <p><strong>Timestamp:</strong> ${block.timestamp}</p>
+        <p><strong>Transactions:</strong> ${JSON.stringify(block.transactions)}</p>
+        <p><strong>Previous Hash:</strong> ${block.previousHash}</p>
+        <p><strong>Hash:</strong> ${block.hash}</p>
+      `;
+
+      blockDiv.appendChild(blockHeader);
+      blockDiv.appendChild(blockData);
+
+      blockchainContainer.appendChild(blockDiv);
+    });
+  </script>
+
+</body>
+</html>
