@@ -58,18 +58,18 @@ exports.verify = function (message, signature, publicKey) {
 // tests 
 //
 
-const { publicKey, privateKey } = rsa.generateKeyPair();
+// export const { publicKey, privateKey } = rsa.generateKeyPair();
 
-console.log(publicKey);
-console.log(privateKey);
+// console.log(publicKey);
+// console.log(privateKey);
 
-const message = prompt('Enter your message to verify through encryption: ');
+// const message = prompt('Enter your message to verify through encryption: ');
 
-const signature = exports.sign(message, privateKey);
-console.log(signature);
+// const signature = exports.sign(message, privateKey);
+// console.log(signature);
 
-if (exports.verify(message, signature, publicKey)) {
-	console.log('Verified successfully.');
-} else {
-	console.log('Not verified.');
-}
+// if (exports.verify(message, signature, publicKey)) {
+// 	console.log('Verified successfully.');
+// } else {
+// 	console.log('Not verified.');
+// }

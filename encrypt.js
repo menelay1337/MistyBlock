@@ -53,18 +53,22 @@ function decrypt(encryptedMessage, privateKey) {
   return decryptedMessage;
 }
 
-const { publicKey, privateKey } = rsa.generateKeyPair();
-console.log(publicKey);
-console.log(privateKey);
+exports.modules={
+  decrypt:decrypt,
+  encrypt:encrypt
+}
+// // const { publicKey, privateKey } = rsa.generateKeyPair();
+// console.log(publicKey);
+// // console.log(privateKey);
 
-const plaintext = prompt("Enter text to encrypt: ");
+// const plaintext = prompt("Enter text to encrypt: ");
 
-// Asymmetric Encryption
-const encrypted = encrypt(plaintext, publicKey);
-console.log('Original:', plaintext);
-console.log('Encrypted:', encrypted);
+// // Asymmetric Encryption
+// const encrypted = encrypt(plaintext, publicKey);
+// console.log('Original:', plaintext);
+// console.log('Encrypted:', encrypted);
 
-// Asymmetric Decryption
-const decrypted = decrypt(encrypted, privateKey);
-console.log('Decrypted:', decrypted);
+// // Asymmetric Decryption
+// const decrypted = decrypt(encrypted, privateKey);
+// console.log('Decrypted:', decrypted);
 

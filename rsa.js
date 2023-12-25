@@ -114,6 +114,9 @@ function modInv(a, m) {
 
   return x1;
 }
+exports.modules = {
+  generateKeyPair: generateKeyPair
+};
 
-//const { publicKey, privateKey } = generateKeyPair(0, 1000);
+// const { publicKey, privateKey } = generateKeyPair(0, 1000);
 

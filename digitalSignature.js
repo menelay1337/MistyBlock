@@ -11,6 +11,5 @@ function verify(message, signature, publicKey) {
   const decryptedSignature = encrypt.decrypt(signature, { d: e, n });
   return message === decryptedSignature;
 }
-
 exports.sign = sign;
 exports.verify = verify;
