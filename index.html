@@ -32,7 +32,7 @@
       padding: 8px;
     }
 
-    button {
+    .asd button {
       margin-top: 10px;
     margin-left: 8px;
       width: 100%;
@@ -45,8 +45,9 @@
   </style>
 </head>
 <body>
-
+    
   <h1>Make a Transaction</h1>
+
 
   <form id="transaction-form">
     <label for="from">From:</label>
@@ -58,7 +59,11 @@
     <label for="amount">Amount:</label>
     <input type="number" id="amount" required>
 
-    <button type="button" onclick="addTransaction()">Add Transaction</button>
+    <button  class="asd"type="button" onclick="addTransaction()">Add Transaction</button>
+      <button onclick="goData()">
+          Data
+      </button>
+
   </form>
 
   <script>
@@ -89,6 +94,9 @@
         console.error('Error adding transaction:', error);
         alert('Error adding transaction. Please try again.');
       });
+    }
+    function goData() {
+      window.location.href = '/data';
     }
   </script>
 

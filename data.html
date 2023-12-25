@@ -24,12 +24,19 @@
 </head>
 <body>
   <h1>Blockchain Data</h1>
+  <button onclick="goData()">
+    Transaction
+</button>
   <pre id="blockchainData"></pre>
 
   <script>
     // Display blockchain data on the page
     const blockchainData = <%= JSON.stringify(blockchain, null, 2) %>;
     document.getElementById('blockchainData').textContent = JSON.stringify(blockchainData, null, 2);
+    function goData() {
+      window.location.href = '/';
+    }
+  
   </script>
 </body>
 </html>
