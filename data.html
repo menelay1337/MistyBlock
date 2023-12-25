@@ -7,74 +7,29 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f5f5f5;
-      margin: 0;
-      padding: 20px;
+      margin: 20px;
     }
 
     h1 {
-      text-align: center;
+      color: #333;
     }
 
-    .blockchain-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .block {
-      border: 1px solid #ddd;
-      margin: 10px;
-      padding: 15px;
-      background-color: #fff;
+    pre {
+      background-color: #f8f8f8;
+      padding: 10px;
       border-radius: 5px;
-      width: 60%;
-    }
-
-    .block-header {
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    .block-data {
-      padding-left: 20px;
+      border: 1px solid #ddd;
     }
   </style>
 </head>
 <body>
-
   <h1>Blockchain Data</h1>
-
-  <div class="blockchain-container" id="blockchain-container"></div>
+  <pre id="blockchainData"></pre>
 
   <script>
-    const myBlockchain = <%= JSON.stringify(myBlockchain) %>;
-
-    const blockchainContainer = document.getElementById('blockchain-container');
-
-    myBlockchain.forEach(block => {
-      const blockDiv = document.createElement('div');
-      blockDiv.classList.add('block');
-
-      const blockHeader = document.createElement('div');
-      blockHeader.classList.add('block-header');
-      blockHeader.textContent = `Block #${block.index}`;
-
-      const blockData = document.createElement('div');
-      blockData.classList.add('block-data');
-      blockData.innerHTML = `
-        <p><strong>Timestamp:</strong> ${block.timestamp}</p>
-        <p><strong>Transactions:</strong> ${JSON.stringify(block.transactions)}</p>
-        <p><strong>Previous Hash:</strong> ${block.previousHash}</p>
-        <p><strong>Hash:</strong> ${block.hash}</p>
-      `;
-
-      blockDiv.appendChild(blockHeader);
-      blockDiv.appendChild(blockData);
-
-      blockchainContainer.appendChild(blockDiv);
-    });
+    // Display blockchain data on the page
+    const blockchainData = <%= JSON.stringify(blockchain, null, 2) %>;
+    document.getElementById('blockchainData').textContent = JSON.stringify(blockchainData, null, 2);
   </script>
-
 </body>
 </html>
