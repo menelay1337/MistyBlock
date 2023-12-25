@@ -9,5 +9,5 @@ Software dependencies: NodeJS, git.
 installation steps: 
 1. `git clone https://github.com/menelay1337/MistyBlock`
 2. `node MistyBlock/ui.js`
-3. Opening browser on localhost with 3000 ping.
+3. Opening browser on localhost with 3000 port.
 
