@@ -1,8 +1,8 @@
 const crypto = require('crypto');
 const merklee = require('./merklee.js')
-const dataToHash = 'Some data to hash';
+// const dataToHash = 'Some data to hash';
 const hash = crypto.createHash('sha256').update(dataToHash).digest('hex');
-console.log('Hash:', hash);
+// console.log('Hash:', hash);
 
 class Block {
     constructor(index, timestamp, transactions, previousHash = '') {
@@ -54,10 +54,10 @@ class Blockchain {
 }
 
 // Usage example:
-const myBlockchain = new Blockchain();
-myBlockchain.addBlock([
-  { from: 'Alice', to: 'Bob', amount: 10 },
-  { from: 'Bob', to: 'Charlie', amount: 5 }
-]);
-
-console.log(JSON.stringify(myBlockchain, null, 2));
+// const myBlockchain = new Blockchain();
+// myBlockchain.addBlock([
+//   { from: 'Alice', to: 'Bob', amount: 10 },
+//   { from: 'Bob', to: 'Charlie', amount: 5 }
+// ]);
+export {Blockchain,Block}
+// console.log(JSON.stringify(myBlockchain, null, 2));

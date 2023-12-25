@@ -1,31 +1,10 @@
 const http = require('http');
 const fs = require('fs');
 const crypto = require('crypto');
+const block =require('./blockchain')
 
-class Block {
-  constructor(index, timestamp, transactions, previousHash = '') {
-    this.index = index;
-    this.timestamp = timestamp;
-    this.transactions = transactions;
-    this.previousHash = previousHash;
-    this.hash = this.calculateHash();
-  }
-
-  calculateHash() {
-    return crypto.createHash('sha256')
-      .update(
-        this.index +
-        this.timestamp +
-        JSON.stringify(this.transactions) +
-        this.previousHash
-      )
-      .digest('hex');
-  }
-}
   
-
-// Initialize an empty blockchain
-const myBlockchain = [];
+const blockchain =  new block.Blockchain()
 
 let isBlockCreationInProgress = false;
 
