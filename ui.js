@@ -37,7 +37,8 @@ const server = http.createServer((req, res) => {
     req.on('end', () => {
       try {
         const transactionData = JSON.parse(requestBody);
-        blockchain.addBlock([transactionData]);
+        blockchain.addBlock([transactionData.from,transactionData.to,transactionData.amount]);
+        console.log(blockchain.chain)
         isBlockCreationInProgress = false;
         res.writeHead(200, { 'Content-Type': 'text/plain' });
         res.end('Transaction added successfully!');
