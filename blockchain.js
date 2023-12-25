@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 const merklee = require('./merklee.js')
 // const dataToHash = 'Some data to hash';
-const hash = crypto.createHash('sha256').update(dataToHash).digest('hex');
+// const hash = crypto.createHash('sha256').update(dataToHash).digest('hex');
 // console.log('Hash:', hash);
 
 class Block {
@@ -57,7 +57,10 @@ class Blockchain {
 // const myBlockchain = new Blockchain();
 // myBlockchain.addBlock([
 //   { from: 'Alice', to: 'Bob', amount: 10 },
-//   { from: 'Bob', to: 'Charlie', amount: 5 }
+//   { from: 'Bob', tto: 'Charlie', amount: 5 }
 // ]);
-export {Blockchain,Block}
+module.exports={
+  blockchain:Blockchain,
+  block:Block,
+}
 // console.log(JSON.stringify(myBlockchain, null, 2));

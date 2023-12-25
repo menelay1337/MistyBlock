@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const block =require('./blockchain')
 
   
-const blockchain =  new block.Blockchain()
+const blockchain =  new block.blockchain()
 
 let isBlockCreationInProgress = false;
 
@@ -18,7 +18,7 @@ const server = http.createServer((req, res) => {
     // Serve the HTML page with dynamically rendered blockchain data
     const htmlContent = fs.readFileSync('data.html', 'utf8');
     res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.end(htmlContent.replace('<%= JSON.stringify(myBlockchain) %>', JSON.stringify(myBlockchain)));
+    res.end(htmlContent.replace('<%= JSON.stringify(myBlockchain) %>', JSON.stringify(blockchain)));
   } else if (req.url === '/add-transaction' && req.method === 'POST') {
     // Handle the POST request for adding a new transaction
     if (isBlockCreationInProgress) {
@@ -35,13 +35,18 @@ const server = http.createServer((req, res) => {
     });
 
     req.on('end', () => {
-      const transactionData = JSON.parse(requestBody);
-      // Add a new block to the blockchain
-      const newBlock = createNewBlock(transactionData);
-      myBlockchain.push(newBlock);
-      isBlockCreationInProgress = false;
-      res.writeHead(200, { 'Content-Type': 'text/plain' });
-      res.end('Transaction added successfully!');
+      try {
+        const transactionData = JSON.parse(requestBody);
+        blockchain.addBlock([transactionData]);
+        isBlockCreationInProgress = false;
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        res.end('Transaction added successfully!');
+      } catch (error) {
+        console.error('Error parsing or processing the transaction:', error);
+        isBlockCreationInProgress = false;
+        res.writeHead(500, { 'Content-Type': 'text/plain' });
+        res.end('Internal Server Error');
+      }
     });
   } else {
     // Serve the HTML page for transactions (default case)
@@ -51,27 +56,6 @@ const server = http.createServer((req, res) => {
   }
 });
 
-function createNewBlock(transactionData) {
-  const previousBlock = myBlockchain[myBlockchain.length - 1] || {
-    index: 0,
-    timestamp: new Date().toISOString(),
-    transactions: 'Genesis Block',
-    previousHash: '0',
-    hash: '8b61cfcf146e3f894197a3f7e1e8e63b5c5ef8a64f7e8b48e140990d20c3d1a8'
-  };
-  const newBlock = new Block(
-    previousBlock.index + 1,
-    new Date().toISOString(),
-    transactionData,
-    previousBlock.hash
-  );
-  newBlock.hash = newBlock.calculateHash();
-
-  // Log the blockchain to the console
-  console.log('Updated Blockchain:', myBlockchain);
-
-  return newBlock;
-}
 
 server.listen(3000);
 console.log('Server started on localhost:3000; press Ctrl-C to terminate....');
