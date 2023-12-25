@@ -17,8 +17,8 @@ const server = http.createServer((req, res) => {
   } else if (req.url === '/data' && req.method === 'GET') {
     // Serve the HTML page with dynamically rendered blockchain data
     const htmlContent = fs.readFileSync('data.html', 'utf8');
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.end(htmlContent.replace('<%= JSON.stringify(myBlockchain) %>', JSON.stringify(blockchain)));
+    res.writeHead(200, { 'Content-Type': 'text/html' });   
+    res.end(htmlContent.replace('<%= JSON.stringify(blockchain, null, 2) %>', JSON.stringify(blockchain, null, 2)));
   } else if (req.url === '/add-transaction' && req.method === 'POST') {
     // Handle the POST request for adding a new transaction
     if (isBlockCreationInProgress) {
